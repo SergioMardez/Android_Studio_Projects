@@ -19,9 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Llamar al fragment por defecto
-        currentFragment = new WelcomeFragment();
-        changeFragment(currentFragment);
+        //Para controlar la rotacion y que no se reinicie el fragment. Se usa el bundle,
+        //si viene vacio es que es la primera vez que se llama.
+        if(savedInstanceState == null) {
+            //Llamar al fragment por defecto
+            currentFragment = new WelcomeFragment();
+            changeFragment(currentFragment);
+        }
     }
 
     @Override
