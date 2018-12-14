@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Divundo</string>
+    <string name="user">Usuario:</string>
+    <string name="password">Contraseña:</string>
+    <string name="login">ENTRAR</string>
+</resources>
