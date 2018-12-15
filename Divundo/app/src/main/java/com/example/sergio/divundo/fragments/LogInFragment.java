@@ -72,7 +72,7 @@ public class LogInFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //This code is executed if there is an error.
-                Toast.makeText(getContext(), "Incorrect User or Password",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.loginError,Toast.LENGTH_LONG).show();
             }
         }) {
             protected Map<String, String> getParams() {

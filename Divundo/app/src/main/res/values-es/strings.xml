@@ -4,4 +4,5 @@
     <string name="user">Usuario:</string>
     <string name="password">Contraseña:</string>
     <string name="login">ENTRAR</string>
+    <string name="loginError">Usuario o Contraseña incorrectos</string>
 </resources>
