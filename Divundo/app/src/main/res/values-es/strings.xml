@@ -5,4 +5,5 @@
     <string name="password">Contraseña:</string>
     <string name="login">ENTRAR</string>
     <string name="loginError">Usuario o Contraseña incorrectos</string>
+    <string name="getError">Error en la conexión</string>
 </resources>

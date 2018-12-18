@@ -4,4 +4,5 @@
     <string name="password">Password:</string>
     <string name="login">LOGIN</string>
     <string name="loginError">Incorrect User or Password</string>
+    <string name="getError">Connecting Error</string>
 </resources>
