@@ -48,14 +48,14 @@ public class LogInFragment extends Fragment {
 
         sendLogin.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
-                loginData();
+                postRequestData();
             }
         });
 
         return view;
     }
 
-    public  void  loginData() {
+    public  void  postRequestData() {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getContext());
 
         String url = "https://www.axacoair.se/api/companion/signin";
@@ -76,12 +76,11 @@ public class LogInFragment extends Fragment {
             }
         }) {
             protected Map<String, String> getParams() {
-                Map<String, String> MyData = new HashMap<String, String>();
-                //MyData.put("user", user.getText().toString()); //Add the data you'd like to send to the server.
-                //MyData.put("password", password.getText().toString());
-                MyData.put("user", "rafael+test@divundo.com"); //Add the data you'd like to send to the server.
-                MyData.put("password", "Sergio18");
-                return MyData;
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user", user.getText().toString()); //Add the data you'd like to send to the server.
+                params.put("password", password.getText().toString());
+
+                return params;
             }
         };
 
