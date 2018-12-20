@@ -62,9 +62,16 @@ public class LogInFragment extends Fragment {
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //This code is executed if the server responds, whether or not the response contains data.
-                //The String 'response' contains the server's response.
+                //Take the token from the server answer
+                String [] splitResponse = response.split("\"");
+                String token = splitResponse[3];
+
+                //Send the token to the next fragment
+                Bundle tokenSend = new Bundle();
+                tokenSend.putString("token",token);
                 Fragment fragment = new EntrySuccessFragment();
+                fragment.setArguments(tokenSend);
+
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment).commit();
             }

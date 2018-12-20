@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public class EntrySuccessFragment extends Fragment {
 
+    private String token;
 
     public EntrySuccessFragment() {
         // Required empty public constructor
@@ -39,6 +40,8 @@ public class EntrySuccessFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_entry_success, container, false);
+
+        token = getArguments().getString("token");
 
         getRequestData();
 
@@ -74,7 +77,7 @@ public class EntrySuccessFragment extends Fragment {
             @Override
             public Map<String,String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", "Bearer (token)");
+                headers.put("Authorization", "Bearer " + token);
                 return headers;
             }
         };

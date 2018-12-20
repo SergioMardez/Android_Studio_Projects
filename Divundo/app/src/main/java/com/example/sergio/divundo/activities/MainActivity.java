@@ -9,8 +9,6 @@ import com.example.sergio.divundo.fragments.LogInFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
