@@ -14,10 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sergio.divundo.R;
-import com.example.sergio.divundo.activities.MainActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,21 +61,34 @@ public class LogInFragment extends Fragment {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getContext());
 
         String url = "https://www.axacoair.se/api/companion/signin";
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        //params.put("user", user.getText().toString()); //Add the data you'd like to send to the server.
+        //params.put("password", password.getText().toString());
+        params.put("user", "rafael+test@divundo.com");
+        params.put("password", "Sergio18");
+        JSONObject parameters = new JSONObject(params);
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                //Take the token from the server answer
-                String [] splitResponse = response.split("\"");
-                String token = splitResponse[3];
+            public void onResponse(JSONObject response) {
+                String token = null;
+                try {
+                    //Take the token from the server answer
+                    token = response.getString("token");
 
-                //Send the token to the next fragment
-                Bundle tokenSend = new Bundle();
-                tokenSend.putString("token",token);
-                Fragment fragment = new EntrySuccessFragment();
-                fragment.setArguments(tokenSend);
+                    //Send the token to the next fragment
+                    Bundle tokenSend = new Bundle();
+                    tokenSend.putString("token",token);
+                    Fragment fragment = new EntrySuccessFragment();
+                    fragment.setArguments(tokenSend);
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, fragment).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, fragment).commit();
+                } catch (JSONException e) {
+                    Toast.makeText(getContext(), R.string.JsonError,Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
             @Override
@@ -81,17 +96,9 @@ public class LogInFragment extends Fragment {
                 //This code is executed if there is an error.
                 Toast.makeText(getContext(), R.string.loginError,Toast.LENGTH_LONG).show();
             }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user", user.getText().toString()); //Add the data you'd like to send to the server.
-                params.put("password", password.getText().toString());
-
-                return params;
-            }
-        };
+        });
 
 
-        MyRequestQueue.add(MyStringRequest);
+        MyRequestQueue.add(jsonRequest);
     }
 }

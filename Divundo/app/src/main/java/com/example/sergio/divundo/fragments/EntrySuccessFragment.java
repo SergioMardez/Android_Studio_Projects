@@ -1,9 +1,11 @@
 package com.example.sergio.divundo.fragments;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sergio.divundo.R;
+import com.example.sergio.divundo.adapters.DataEntrySuccessAdapter;
+import com.example.sergio.divundo.models.PicText;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -28,7 +33,12 @@ import java.util.Map;
  */
 public class EntrySuccessFragment extends Fragment {
 
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private DataEntrySuccessAdapter adapter;
+
     private String token;
+    private List<PicText> picText;
 
     public EntrySuccessFragment() {
         // Required empty public constructor
@@ -62,9 +72,25 @@ public class EntrySuccessFragment extends Fragment {
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //This code is executed if the server responds, whether or not the response contains data.
-                //The String 'response' contains the server's response.
-                String resp = response;
+                //Add the data from the server
+                picText = new ArrayList<PicText>();
+                final PicText serverPicText = new PicText("Happy New Year!", "https://cdn.pixabay.com/photo/2017/01/04/21/00/new-years-eve-1953253_960_720.jpg");
+                picText.add(serverPicText);
+
+                recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerView);
+                layoutManager = new LinearLayoutManager(getContext());
+                // Observa como pasamos el activity, con this. Podríamos declarar
+                // Activity o Context en el constructor y funcionaría pasando el mismo valor, this
+                adapter = new DataEntrySuccessAdapter(picText, R.layout.recyclerview_pic_text, getActivity(), new DataEntrySuccessAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(PicText picText, int position) {
+                        Toast.makeText(getContext(), serverPicText.getText(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
             @Override
