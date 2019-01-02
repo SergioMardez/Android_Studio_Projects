@@ -4,6 +4,7 @@
     <string name="user">Usuario:</string>
     <string name="password">Contraseña:</string>
     <string name="login">ENTRAR</string>
+    <string name="logout">SALIR</string>
     <string name="JsonError">No se pudo recuperar el token</string>
     <string name="loginError">Usuario o Contraseña incorrectos</string>
     <string name="getError">Error en la conexión</string>

@@ -1,8 +1,11 @@
 package com.example.sergio.divundo.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,7 @@ import java.util.Map;
  */
 public class LogInFragment extends Fragment {
 
-
+    private SharedPreferences prefs;
     EditText user, password;
 
     public LogInFragment() {
@@ -43,8 +46,12 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
+        //Bind UI
         user = (EditText)view.findViewById(R.id.editTextUser);
         password = (EditText)view.findViewById(R.id.editTextPassword);
+
+        //Use shared preferences to save the token. No need to login unless logout
+        prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
 
         Button sendLogin = (Button)view.findViewById(R.id.buttonLogin);
 
@@ -54,10 +61,14 @@ public class LogInFragment extends Fragment {
             }
         });
 
+        //If token is saved, go to entrySuccess
+        if(!TextUtils.isEmpty(getTokenPreferences()))
+            goEntrySuccess();
+
         return view;
     }
 
-    public  void  postRequestData() {
+    private void  postRequestData() {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getContext());
 
         String url = "https://www.axacoair.se/api/companion/signin";
@@ -78,14 +89,10 @@ public class LogInFragment extends Fragment {
                     //Take the token from the server answer
                     token = response.getString("token");
 
-                    //Send the token to the next fragment
-                    Bundle tokenSend = new Bundle();
-                    tokenSend.putString("token",token);
-                    Fragment fragment = new EntrySuccessFragment();
-                    fragment.setArguments(tokenSend);
+                    //Save the token
+                    savePreferences(token);
 
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, fragment).commit();
+                    goEntrySuccess();
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), R.string.JsonError,Toast.LENGTH_LONG).show();
                 }
@@ -100,5 +107,23 @@ public class LogInFragment extends Fragment {
 
 
         MyRequestQueue.add(jsonRequest);
+    }
+
+    private void savePreferences(String token) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("token", token);
+        editor.commit();
+        editor.apply();
+    }
+
+    private String getTokenPreferences() {
+        return prefs.getString("token", "");
+    }
+
+    private void goEntrySuccess(){
+        Fragment fragment = new EntrySuccessFragment();
+        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment).commit();
     }
 }

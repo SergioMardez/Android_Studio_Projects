@@ -3,6 +3,7 @@
     <string name="user">User:</string>
     <string name="password">Password:</string>
     <string name="login">LOGIN</string>
+    <string name="logout">LOG OUT</string>
     <string name="JsonError">Impossible to handle the token</string>
     <string name="loginError">Incorrect User or Password</string>
     <string name="getError">Connecting Error</string>
