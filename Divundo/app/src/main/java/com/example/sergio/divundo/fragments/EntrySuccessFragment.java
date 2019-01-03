@@ -20,11 +20,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sergio.divundo.R;
 import com.example.sergio.divundo.adapters.DataEntrySuccessAdapter;
 import com.example.sergio.divundo.models.PicText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,12 +116,21 @@ public class EntrySuccessFragment extends Fragment {
 
         String getUrl = createGetWithParams(url, params);
 
-        StringRequest MyStringRequest = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+        JsonArrayRequest MyJSONArrayRequest = new JsonArrayRequest(Request.Method.GET, getUrl, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
-                //Add the data from the server
+            public void onResponse(JSONArray response) {
                 picText = new ArrayList<PicText>();
-                final PicText serverPicText = new PicText("Happy New Year!", "https://cdn.pixabay.com/photo/2017/01/04/21/00/new-years-eve-1953253_960_720.jpg");
+
+                //Add the data from the server
+                try {
+                    JSONObject objectResponse = response.getJSONObject(0);
+                    PicText serverPicTex = new PicText(objectResponse.getString("subTitle"), "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?cs=srgb&dl=academy-accomplishment-celebrate-267885.jpg&fm=jpg");
+                    picText.add(serverPicTex);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                PicText serverPicText = new PicText("Happy New Year!", "https://cdn.pixabay.com/photo/2017/01/04/21/00/new-years-eve-1953253_960_720.jpg");
                 picText.add(serverPicText);
 
                 makeCardView(picText);
@@ -138,7 +151,7 @@ public class EntrySuccessFragment extends Fragment {
             }
         };
 
-        MyRequestQueue.add(MyStringRequest);
+        MyRequestQueue.add(MyJSONArrayRequest);
     }
 
     private String createGetWithParams(String url, Map<String, String> params)
