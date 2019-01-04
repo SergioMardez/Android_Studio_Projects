@@ -5,6 +5,44 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/container"
         tools:context=".activities.ExtensionFunctionsActivity">
 
+    <Button
+            android:text="@string/extensions_toast"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/buttonToast" android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp" android:layout_marginEnd="16dp"/>
+    <Button
+            android:text="@string/extensions_snack_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/buttonSnackBar" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonToast" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+    <Button
+            android:text="@string/extensions_load_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/buttonLoadByURL" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSnackBar" android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"/>
+    <Button
+            android:text="@string/extensions_go_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/buttonGoToActivity" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLoadByURL" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp" app:srcCompat="@android:drawable/btn_star"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/imageViewLoadedByURL" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonGoToActivity"/>
 </android.support.constraint.ConstraintLayout>

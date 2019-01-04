@@ -21,4 +21,11 @@
     <string name="button_intent_object">Intent With Object</string>
     <string name="button_back">Go Back</string>
     <string name="button_take_picture">Take a Picture</string>
+    <string name="preferences_name_hint">Tape Name Here</string>
+    <string name="preferneces_age_hint">Tape Age Here</string>
+    <string name="preferneces_button_save">Save Preferences</string>
+    <string name="extensions_toast">Toast</string>
+    <string name="extensions_snack_bar">Snack Bar</string>
+    <string name="extensions_load_url">Load URL</string>
+    <string name="extensions_go_to">Go To Activity</string>
 </resources>

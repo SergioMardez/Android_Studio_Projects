@@ -1,17 +1,15 @@
 package com.example.sergio.activitieslistviewsharedprefences.adapters
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.sergio.activitieslistviewsharedprefences.models.Person
+import com.example.sergio.activitieslistviewsharedprefences.others.inflate
 import kotlinx.android.synthetic.main.list_view_person.view.*
 
 class PersonAdapter(val context: Context, val layout: Int, val list: List<Person>) : BaseAdapter() {
-
-    private val mInflator: LayoutInflater = LayoutInflater.from(context)
 
     override fun getItem(position: Int): Any {
         return list[position]
@@ -34,7 +32,7 @@ class PersonAdapter(val context: Context, val layout: Int, val list: List<Person
         //ConvertView representa los items de la listView para poder hacer scroll guardando los valores que hayan sido llamados
         //Si son nulos, se llama al converView al no haber sido creados antes
         if(convertView == null) {
-            view = mInflator.inflate(layout, parent, false)
+            view = parent.inflate(layout)
             vh = PersonViewHolder(view)
 
             //tag para inyectar objetos al view
