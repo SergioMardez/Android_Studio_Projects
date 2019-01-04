@@ -127,7 +127,7 @@ public class EntrySuccessFragment extends Fragment {
                     PicText serverPicTex = new PicText(objectResponse.getString("subTitle"), "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?cs=srgb&dl=academy-accomplishment-celebrate-267885.jpg&fm=jpg");
                     picText.add(serverPicTex);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Empty JSONArray", Toast.LENGTH_LONG).show();
                 }
 
                 PicText serverPicText = new PicText("Happy New Year!", "https://cdn.pixabay.com/photo/2017/01/04/21/00/new-years-eve-1953253_960_720.jpg");
