@@ -1,4 +1,4 @@
-package com.example.sergio.activitieslistviewsharedprefences.activities
+package com.example.sergio.activitieslistviewsharedprefences.others
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import com.example.sergio.activitieslistviewsharedprefences.R
+import com.example.sergio.activitieslistviewsharedprefences.others.LifeCycleEventsActivity
 
 class LifeCycleActivity : LifeCycleEventsActivity() {
 
