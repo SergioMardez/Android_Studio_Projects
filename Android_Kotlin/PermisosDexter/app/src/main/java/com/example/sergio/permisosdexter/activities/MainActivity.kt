@@ -10,12 +10,16 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.activity_main.*
 import android.Manifest
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.widget.TextView
 import com.example.sergio.permisosdexter.R
 import com.example.sergio.permisosdexter.enums.PermissionStatusEnum
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.CompositePermissionListener
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
+import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener
 
 /*
 *  Al añadir la libreria de dexter   implementation 'com.karumi:dexter:4.2.0'  al gradle se crea una incompatibilidad
@@ -46,7 +50,12 @@ class MainActivity : Activity() {
         buttonAll.setOnClickListener { checkAllPermissions() }
     }
 
-    private fun checkCameraPermissions() = setPermissionHandler(Manifest.permission.CAMERA, textViewCamera)
+    //private fun checkCameraPermissions() = setPermissionHandler(Manifest.permission.CAMERA, textViewCamera)
+
+    //private fun checkCameraPermissions() = setCameraPermisionHandlerWithDialog()
+    private fun checkCameraPermissions() = setCameraPermisionHandlerWithSnackbar()
+
+
 
     private fun checkContactsPermissions() = setPermissionHandler(Manifest.permission.READ_CONTACTS, textViewContacts)
 
@@ -145,4 +154,85 @@ class MainActivity : Activity() {
         }
     }
 
+    private fun setCameraPermisionHandlerWithDialog() {
+        val dialogPermisionListener = DialogOnDeniedPermissionListener.Builder
+            .withContext(this)
+            .withTitle("Camera Permission")
+            .withMessage("Camera permision is needed to take pictures")
+            .withButtonText(android.R.string.ok) //Boton aceptar que viene por defecto
+            .withIcon(R.mipmap.ic_launcher)
+            .build()
+
+        val permission = object : PermissionListener {
+            override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                setPermissionStatus(textViewCamera, PermissionStatusEnum.GRANTED)
+            }
+
+            override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
+                token?.continuePermissionRequest()
+            }
+
+            override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                if (response.isPermanentlyDenied) {
+                    setPermissionStatus(textViewCamera, PermissionStatusEnum.PERMANENTLY_DENIED)
+                } else {
+                    setPermissionStatus(textViewCamera, PermissionStatusEnum.DENIED)
+                }
+            }
+
+        }
+
+        val composite = CompositePermissionListener(permission, dialogPermisionListener)
+
+        Dexter.withActivity(this)
+            .withPermission(Manifest.permission.CAMERA)
+            .withListener(composite)
+            .check()
+    }
+
+    private fun setCameraPermisionHandlerWithSnackbar() {
+
+        //Hace falta darle un id al layout general de la vista (root en este caso)
+        val snackBarPermissionListener = SnackbarOnDeniedPermissionListener.Builder
+            .with(root, "Camera is needed to take pictures")
+            .withOpenSettingsButton("Settings")
+            .withCallback(object : Snackbar.Callback() {
+
+                override fun onShown(sb: Snackbar?) {
+                    // Manejador para cuando el snackbar es visible
+                }
+
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    //Para cuando el snackbar ha sido borrado
+                }
+
+            }).build()
+
+
+        val permission = object : PermissionListener {
+            override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                setPermissionStatus(textViewCamera, PermissionStatusEnum.GRANTED)
+            }
+
+            override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
+                token?.continuePermissionRequest()
+            }
+
+            override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                if (response.isPermanentlyDenied) {
+                    setPermissionStatus(textViewCamera, PermissionStatusEnum.PERMANENTLY_DENIED)
+                } else {
+                    setPermissionStatus(textViewCamera, PermissionStatusEnum.DENIED)
+                }
+            }
+
+        }
+
+        val composite = CompositePermissionListener(permission, snackBarPermissionListener)
+
+        Dexter.withActivity(this)
+            .withPermission(Manifest.permission.CAMERA)
+            .withListener(composite)
+            .check()
+    }
 }
