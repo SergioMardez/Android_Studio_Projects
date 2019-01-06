@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn ="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:icon="@drawable/ic_home"
+                android:id="@+id/navHome"
+                android:title="Home"
+        />
+
+        <item
+                android:icon="@drawable/ic_departure"
+                android:id="@+id/navDepartures"
+                android:title="Departures"
+        />
+
+        <item
+                android:icon="@drawable/ic_arrivals"
+                android:id="@+id/navArrivals"
+                android:title="Arrivals"
+        />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                    android:icon="@drawable/ic_profile"
+                    android:id="@+id/nav_prof"
+                    android:title="Profile"
+            />
+
+            <item
+                    android:icon="@drawable/ic_settings"
+                    android:id="@+id/nav_settings"
+                    android:title="Settings"
+            />
+        </menu>
+    </item>
+
+</menu>
