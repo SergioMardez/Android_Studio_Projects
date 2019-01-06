@@ -13,4 +13,5 @@
     <string name="arrivals_fragment_hello">Hello from Arrivals</string>
     <string name="departures_fragment_title">Departures</string>
     <string name="departures_fragment_hello">Hello from Departure</string>
+
 </resources>
