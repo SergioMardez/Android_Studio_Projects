@@ -89,6 +89,7 @@ class MainActivity : ToolbarActivity(), NavigationView.OnNavigationItemSelectedL
         return true
     }
 
+    //Se cierra el panel lateral si está abierto al pulsar la tecla back. Si se pulsa otra vez se sale de la app
     override fun onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)

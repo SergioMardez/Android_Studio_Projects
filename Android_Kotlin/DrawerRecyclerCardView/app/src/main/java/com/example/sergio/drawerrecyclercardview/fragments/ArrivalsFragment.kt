@@ -20,9 +20,11 @@ private const val ARG_PARAM2 = "param2"
  */
 class ArrivalsFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
+        //Poner el titulo en el toolbar
+        activity?.setTitle(R.string.arrivals_fragment_title)
+
         return inflater.inflate(R.layout.fragment_arrivals, container, false)
     }
 
