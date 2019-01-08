@@ -45,8 +45,8 @@ class LoginFragment : Fragment() {
 
         var url = "https://www.axacoair.se/api/companion/signin"
 
-        val user = editTextUser.text.toString()
-        val password = editTextPassword.text.toString()
+        var user = editTextUser.text.toString()
+        var password = editTextPassword.text.toString()
 
         //jsonPost.put("user", user)
         //jsonPost.put("password", password)
@@ -57,8 +57,8 @@ class LoginFragment : Fragment() {
         val postRequest = Volley.newRequestQueue(context)
         val request = JsonObjectRequest(Request.Method.POST,url,jsonPost,
             Response.Listener { response ->
-                val token = response.getString("token")
-                prefs.edit().putString("token", token).apply()
+                var token = response.getString("token") //take the token from the response
+                prefs.edit().putString("token", token).apply() //Save the token
                 fragmentTransaction(EntrySuccessFragment())
             }, Response.ErrorListener {
                 activity?.toast(R.string.loginError)
