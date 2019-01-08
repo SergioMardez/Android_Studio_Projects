@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DivundoKotlin</string>
+    <string name="user">Usuario:</string>
+    <string name="password">Contraseña:</string>
+    <string name="login">Entrar</string>
+    <string name="logout">Salir</string>
+    <string name="JsonError">Imposible obtener el token</string>
+    <string name="loginError">Usuario o contraseña incorrectos</string>
+    <string name="getError">Error en la conexión</string>
+</resources>
