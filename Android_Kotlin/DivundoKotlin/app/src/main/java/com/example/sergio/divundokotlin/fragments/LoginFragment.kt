@@ -32,10 +32,15 @@ class LoginFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_login, container, false)
 
         //shared preferences
-        val fileName = "mis-preferencias"
+        val fileName = "my-preferences"
         prefs = activity!!.applicationContext.getSharedPreferences(fileName, Context.MODE_PRIVATE)
 
         view.buttonLogin.setOnClickListener { postRequest() }
+
+        val token = prefs.getString("token", "")
+        if (!token.isEmpty()){
+            fragmentTransaction(EntrySuccessFragment())
+        }
 
         return view
     }
@@ -48,11 +53,11 @@ class LoginFragment : Fragment() {
         var user = editTextUser.text.toString()
         var password = editTextPassword.text.toString()
 
-        //jsonPost.put("user", user)
-        //jsonPost.put("password", password)
+        jsonPost.put("user", user)
+        jsonPost.put("password", password)
 
-        jsonPost.put("user", "rafael+test@divundo.com")
-        jsonPost.put("password", "Sergio18")
+        //jsonPost.put("user", "rafael+test@divundo.com")
+        //jsonPost.put("password", "Sergio18")
 
         val postRequest = Volley.newRequestQueue(context)
         val request = JsonObjectRequest(Request.Method.POST,url,jsonPost,

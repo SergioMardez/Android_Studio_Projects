@@ -48,7 +48,7 @@ class EntrySuccessFragment : Fragment() {
         setHasOptionsMenu(true)
 
         //shared preferences
-        val fileName = "mis-preferencias"
+        val fileName = "my-preferences"
 
         //Take the token back
         prefs = activity!!.applicationContext.getSharedPreferences(fileName, Context.MODE_PRIVATE)

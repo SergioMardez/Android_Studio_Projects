@@ -75,10 +75,10 @@ public class LogInFragment extends Fragment {
 
 
         Map<String, String> params = new HashMap<String, String>();
-        //params.put("user", user.getText().toString()); //Add the data you'd like to send to the server.
-        //params.put("password", password.getText().toString());
-        params.put("user", "rafael+test@divundo.com");
-        params.put("password", "Sergio18");
+        params.put("user", user.getText().toString());
+        params.put("password", password.getText().toString());
+        //params.put("user", "rafael+test@divundo.com");
+        //params.put("password", "Sergio18");
         JSONObject parameters = new JSONObject(params);
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
