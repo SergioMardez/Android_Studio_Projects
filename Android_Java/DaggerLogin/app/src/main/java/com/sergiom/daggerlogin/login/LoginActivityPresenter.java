@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
 
-    //Hace falta una referencia a la vista y al modelo para comunicarse con ell
+    //Hace falta una referencia a la vista y al modelo para comunicarse con el
     //@Nullable para ver si una variable es nula o no (si se ha iniciado correctamente)
     @Nullable
     private LoginActivityMVP.View view;

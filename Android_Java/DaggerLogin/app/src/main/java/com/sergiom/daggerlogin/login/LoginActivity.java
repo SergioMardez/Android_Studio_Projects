@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
 
     @Override
     public void showUserSaved() {
-        Toast.makeText(this, "usuario guardado correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Usuario guardado correctamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override
