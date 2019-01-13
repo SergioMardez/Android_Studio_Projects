@@ -32,4 +32,14 @@ dependencies {
     //Pruebas de test unitarias. JUnit - Mockito
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.+'
+
+    //Interactuación con APIs Rest
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+
+    //Parseo de JSON
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    //Logging HTTP. Para depurar e inspeccionar las llamadas a servidores
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 }

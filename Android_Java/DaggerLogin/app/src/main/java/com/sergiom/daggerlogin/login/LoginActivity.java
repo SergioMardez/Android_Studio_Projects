@@ -8,9 +8,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sergiom.daggerlogin.R;
+import com.sergiom.daggerlogin.http.TwitchAPI;
+import com.sergiom.daggerlogin.http.twitch.Game;
+import com.sergiom.daggerlogin.http.twitch.Twitch;
 import com.sergiom.daggerlogin.root.App;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements LoginActivityMVP.View {
 
@@ -23,6 +32,9 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
     //Se inyecta el presenter en la vista, para obtener una refencia al mismo
     @Inject
     LoginActivityMVP.Presenter presenter;
+
+    @Inject
+    TwitchAPI twitchAPI;
 
     EditText firstName, lastName;
     Button loginButton;
@@ -43,6 +55,27 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
             @Override
             public void onClick(View v) {
                 presenter.loginButtonClicked();
+            }
+        });
+
+
+        //Ejemplo de uso de la API Twitch con retrofit
+        Call<Twitch> call = twitchAPI.getTopGames("80ybz7f7ygfrbktls45an6i9t6fxyu");
+
+        call.enqueue(new Callback<Twitch>() {
+            @Override
+            public void onResponse(Call<Twitch> call, Response<Twitch> response) {
+                //Se coge la lista de juegos que viene en el cuerpo de la respuesta. Tal y como se declara en la clase Twitch
+                List<Game> topGames = response.body().getGame();
+
+                for (Game game: topGames) {
+                    System.out.println(game.getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Twitch> call, Throwable t) {
+                t.printStackTrace(); //Se imprime toda la traza del error asi
             }
         });
     }

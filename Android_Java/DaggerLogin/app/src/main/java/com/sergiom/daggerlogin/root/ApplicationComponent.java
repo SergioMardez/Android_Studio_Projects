@@ -1,6 +1,7 @@
 package com.sergiom.daggerlogin.root;
 
 
+import com.sergiom.daggerlogin.http.TwitchModule;
 import com.sergiom.daggerlogin.login.LoginActivity;
 import com.sergiom.daggerlogin.login.LoginModule;
 
@@ -19,7 +20,7 @@ import dagger.Component;
 * */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, LoginModule.class})
+@Component(modules = {ApplicationModule.class, LoginModule.class, TwitchModule.class})
 public interface ApplicationComponent {
 
     //Para inyectar la activity. Al ser una interfaz, solo hay que tener el metodo, no la implementacion
