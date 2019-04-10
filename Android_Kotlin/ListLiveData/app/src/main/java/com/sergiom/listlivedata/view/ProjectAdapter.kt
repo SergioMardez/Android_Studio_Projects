@@ -1,12 +1,15 @@
 package com.sergiom.listlivedata.view
 
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import com.sergiom.listlivedata.R
 import com.sergiom.listlivedata.app.inflate
 import com.sergiom.listlivedata.model.Project
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.list_item_project.view.*
+import java.text.AttributedString
 
 class ProjectAdapter(private val projects: MutableList<Project>)
     : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
@@ -32,6 +35,7 @@ class ProjectAdapter(private val projects: MutableList<Project>)
         fun bind(project: Project) {
             this.project = project
             // Se añaden los parametros del project
+            //itemView.textViewIcon.setText(Html.fromHtml("<strong>hola</strong>adios"))
             itemView.textViewIcon.text = project.icon
             itemView.textViewProjectTitle.text = project.title
         }

@@ -12,7 +12,7 @@ interface ProjectDao {
     fun insertProject(project: Project)
 
     @Delete
-    fun deleteProject(vararg porject: Project)
+    fun deleteProject(vararg project: Project)
 
     @Query("SELECT * FROM project_table")
     fun getAllProjects(): LiveData<List<Project>>
